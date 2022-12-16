@@ -1,0 +1,13 @@
+header {
+    text-align: center;
+    background-color: aqua;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.border {
+    border: solid black;
+    border-width: thick;
+}
