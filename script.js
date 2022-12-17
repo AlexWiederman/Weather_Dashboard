@@ -1,18 +1,13 @@
-var card5day1El = document.querySelector(".day1-header")
-var card5day2El = document.querySelector(".day2-header")
-var card5day3El = document.querySelector(".day3-header")
-var card5day4El = document.querySelector(".day4-header")
-var card5day5El = document.querySelector(".day5-header")
-var currentEl = document.querySelector(".current")
-var key = "5ac5953f4965de6704e28a9ae8fcf1ff"
-var lat
-var lon
-var city = "Tampa";
-var currentWind;
-var currentTemp;
-var currentHum;
-
-
+var card5day1El = document.querySelector(".day1-header");
+var card5day2El = document.querySelector(".day2-header");
+var card5day3El = document.querySelector(".day3-header");
+var card5day4El = document.querySelector(".day4-header");
+var card5day5El = document.querySelector(".day5-header");
+var currentEl = document.querySelector(".current");
+var key = "5ac5953f4965de6704e28a9ae8fcf1ff";
+var lat;
+var lon;
+var city;
 
 var currentDay = dayjs().format('MM/DD/YYYY');
 var day1 = dayjs().add(1, 'day').format('MM/DD/YYYY');
@@ -23,25 +18,15 @@ var day5 = dayjs().add(5, 'day').format('MM/DD/YYYY');
 
 
 
+document.getElementById("button").addEventListener("click", function() {
+    city = document.getElementById("search").value;
+    document.getElementById("search").value = ""; //Clearing out search bar after searching
+    getCords();
 
+  });
+
+  
 // Getting weather info
-// 
-
-var lat = getCords();
-
-function getWeather() {
-
-    var weatherInfoUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + key
-
-    fetch(weatherInfoUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data)
-        })
-}
-
 function getCords() {
     var locUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + key
     fetch(locUrl)
