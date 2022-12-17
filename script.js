@@ -21,6 +21,7 @@ var day5 = dayjs().add(5, 'day').format('MM/DD/YYYY');
 document.getElementById("button").addEventListener("click", function() {
     city = document.getElementById("search").value;
     document.getElementById("search").value = ""; //Clearing out search bar after searching
+    // localStorage.setItem(search)
     getCords();
 
   });
