@@ -9,6 +9,7 @@ var lat;
 var lon;
 var newCity;
 var city;
+var historyList;
 
 
 var currentDay = dayjs().format('MM/DD/YYYY');
@@ -18,10 +19,19 @@ var day3 = dayjs().add(3, 'day').format('MM/DD/YYYY');
 var day4 = dayjs().add(4, 'day').format('MM/DD/YYYY');
 var day5 = dayjs().add(5, 'day').format('MM/DD/YYYY');
 
-var storage = getHistory()
+var storage = getHistory();
 
-document.getElementById("button").addEventListener("click", function () {
-    newCity = document.getElementById("search").value;
+var parentElements = document.querySelector(".history");
+//When clicking a history search city, it will search that one again
+parentElements.addEventListener("click", function (event) {
+    console.log(event.target.innerHTML);
+    newCity = event.target.innerHTML; //getting the inner html of the button to know what city to search for
+    //start the search process but with the city name that was clicked on
+    searchGo();
+});
+
+function searchGo() {
+    
     if (newCity == "") { return }
     document.getElementById("search").value = ""; //Clearing out search bar after searching
 
@@ -42,6 +52,12 @@ document.getElementById("button").addEventListener("click", function () {
 
     makeHistoryElement();
 
+}
+//Clicking the select button
+document.getElementById("button").addEventListener("click", function () {
+    newCity = document.getElementById("search").value;
+    searchGo();
+
 });
 
 function saveCityToStorage() {
@@ -57,6 +73,8 @@ function getCords() {
             return response.json();
         })
         .then(function (data) {
+            
+            actualCity = data[0].name
             var lon = data[0].lon
             var lat = data[0].lat
 
@@ -73,7 +91,7 @@ function getCords() {
 
                     // Current Day Card
                     var currTitleEl = document.createElement('h4');
-                    currTitleEl.innerHTML = newCity + " " + currentDay
+                    currTitleEl.innerHTML = actualCity + " " + currentDay
                     currTitleEl.classList = "card-header first new"
                     currentEl.appendChild(currTitleEl)
 
@@ -185,14 +203,22 @@ function makeHistoryElement() {
             historyElements[i].remove()
         }
     }
-    //
+
+    //Creating elements that are in the local storage variable (city)
     for (i = 0; i < city.length; i++) {
         var historyEl = document.querySelector(".history");
         var historyNew = document.createElement('li');
         historyNew.innerHTML = city[i]
         historyNew.classList = "list-group-item"
         historyEl.appendChild(historyNew)
+
+        // var span = document.createElement('span');
+        // span.innerHTML = "<li onclick='historyListClickEvent()' class='list-group-item'>" +city[i] +"</li>"
+        // historyEl.appendChild(span)
+
+       
     }
+    
 }
 
 function getHistory(city) {

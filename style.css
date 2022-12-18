@@ -11,3 +11,7 @@ header {
     border: solid black;
     border-width: thick;
 }
+
+.list-group-item:hover {
+    cursor: pointer;
+}
