@@ -7,6 +7,7 @@ var currentEl = document.querySelector(".current");
 var key = "5ac5953f4965de6704e28a9ae8fcf1ff";
 var lat;
 var lon;
+var newCity;
 var city;
 
 
@@ -20,9 +21,11 @@ var day5 = dayjs().add(5, 'day').format('MM/DD/YYYY');
 var storage = getHistory()
 
 document.getElementById("button").addEventListener("click", function () {
-    city = document.getElementById("search").value;
-    if (city == "") {return}
+    newCity = document.getElementById("search").value;
+    if (newCity == "") { return }
     document.getElementById("search").value = ""; //Clearing out search bar after searching
+
+    // Deleting all of the weather card data if it exists, making room for the new ones
     var exists = document.querySelector(".new")
     if (exists !== null) {
         var elements = document.querySelectorAll(".new");
@@ -30,18 +33,25 @@ document.getElementById("button").addEventListener("click", function () {
             elements[i].remove()
         }
     }
-
-    localStorage.setItem("searchHistory", JSON.stringify(city));
+    city = getHistory(city)
+    //Adding new city to the local storage variable
+    city.push(newCity);
+    saveCityToStorage()
 
     getCords();
-    setHistory();
+
+    makeHistoryElement();
 
 });
+
+function saveCityToStorage() {
+    localStorage.setItem("searchHistory", JSON.stringify(city));
+}
 
 
 // Getting weather info
 function getCords() {
-    var locUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + key
+    var locUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + newCity + "&limit=1&appid=" + key
     fetch(locUrl)
         .then(function (response) {
             return response.json();
@@ -63,7 +73,7 @@ function getCords() {
 
                     // Current Day Card
                     var currTitleEl = document.createElement('h4');
-                    currTitleEl.innerHTML = city + " " + currentDay
+                    currTitleEl.innerHTML = newCity + " " + currentDay
                     currTitleEl.classList = "card-header first new"
                     currentEl.appendChild(currTitleEl)
 
@@ -166,22 +176,32 @@ function getCords() {
 
 }
 
-function setHistory() {
-    for (i = 0; i < storage.length; i++) {
+function makeHistoryElement() {
+    //Deleting all history elements before creating all new ones so they do not stack and repeat
+    var historyExists = document.querySelector(".list-group-item")
+    if (historyExists !== null) {
+        var historyElements = document.querySelectorAll(".list-group-item");
+        for (i = 0; i < historyElements.length; i++) {
+            historyElements[i].remove()
+        }
+    }
+    //
+    for (i = 0; i < city.length; i++) {
         var historyEl = document.querySelector(".history");
         var historyNew = document.createElement('li');
-        historyNew.innerHTML = storage[i]
+        historyNew.innerHTML = city[i]
         historyNew.classList = "list-group-item"
         historyEl.appendChild(historyNew)
     }
 }
 
-function getHistory() {
-    var storage = localStorage.getItem('searchHistory');
-    if (storage) {
-        storage = JSON.parse(storage);
+function getHistory(city) {
+    var city = localStorage.getItem('searchHistory');
+    if (city) {
+        city = JSON.parse(city);
     } else {
-        storage = [];
+        city = [];
     }
-    return storage;
-  }
+    return city;
+}
+
