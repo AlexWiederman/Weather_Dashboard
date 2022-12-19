@@ -67,7 +67,7 @@ function saveCityToStorage() {
 
 // Getting weather info
 function getCords() {
-    var locUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + newCity + "&limit=1&appid=" + key
+    var locUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + newCity + "&limit=1&appid=" + key
     fetch(locUrl)
         .then(function (response) {
             return response.json();
@@ -96,7 +96,7 @@ function getCords() {
                     currentEl.appendChild(currTitleEl)
 
                     var currImgEl = document.createElement("img");
-                    currImgEl.src = "http://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png"
+                    currImgEl.src = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png"
                     currImgEl.classList = "card new"
                     currentEl.appendChild(currImgEl)
 
@@ -112,7 +112,7 @@ function getCords() {
                     document.querySelector('.day1').appendChild(day1Title);
 
                     var day1ImgEl = document.createElement("img");
-                    day1ImgEl.src = "http://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + "@2x.png"
+                    day1ImgEl.src = "https://openweathermap.org/img/wn/" + data.list[1].weather[0].icon + "@2x.png"
                     day1ImgEl.classList = "card new"
                     document.querySelector('.day1').appendChild(day1ImgEl)
 
@@ -128,7 +128,7 @@ function getCords() {
                     document.querySelector('.day2').appendChild(day2Title);
 
                     var day2ImgEl = document.createElement("img");
-                    day2ImgEl.src = "http://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + "@2x.png"
+                    day2ImgEl.src = "https://openweathermap.org/img/wn/" + data.list[2].weather[0].icon + "@2x.png"
                     day2ImgEl.classList = "card new"
                     document.querySelector('.day2').appendChild(day2ImgEl)
 
@@ -144,7 +144,7 @@ function getCords() {
                     document.querySelector('.day3').appendChild(day3Title);
 
                     var day3ImgEl = document.createElement("img");
-                    day3ImgEl.src = "http://openweathermap.org/img/wn/" + data.list[3].weather[0].icon + "@2x.png"
+                    day3ImgEl.src = "https://openweathermap.org/img/wn/" + data.list[3].weather[0].icon + "@2x.png"
                     day3ImgEl.classList = "card new"
                     document.querySelector('.day3').appendChild(day3ImgEl)
 
@@ -160,7 +160,7 @@ function getCords() {
                     document.querySelector('.day4').appendChild(day4Title);
 
                     var day4ImgEl = document.createElement("img");
-                    day4ImgEl.src = "http://openweathermap.org/img/wn/" + data.list[4].weather[0].icon + "@2x.png"
+                    day4ImgEl.src = "https://openweathermap.org/img/wn/" + data.list[4].weather[0].icon + "@2x.png"
                     day4ImgEl.classList = "card new"
                     document.querySelector('.day4').appendChild(day4ImgEl)
 
@@ -177,7 +177,7 @@ function getCords() {
                     document.querySelector('.day5').appendChild(day5Title);
 
                     var day5ImgEl = document.createElement("img");
-                    day5ImgEl.src = "http://openweathermap.org/img/wn/" + data.list[5].weather[0].icon + "@2x.png"
+                    day5ImgEl.src = "https://openweathermap.org/img/wn/" + data.list[5].weather[0].icon + "@2x.png"
                     day5ImgEl.classList = "card new"
                     document.querySelector('.day5').appendChild(day5ImgEl)
 
